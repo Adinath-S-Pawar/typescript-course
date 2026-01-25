@@ -1,7 +1,7 @@
 type One = string
 type Two = string | number
 type Three = 'hello'
-
+//assertion or type casting
 // convert to more or less specific 
 let a: One = 'hello'
 let b = a as Two // less specific 
@@ -24,7 +24,7 @@ let nextVal: number = addOrConcat(2, 2, 'concat') as number
 (10 as unknown) as string
 
 // The DOM 
-const img = document.querySelector('img')!
+const img = document.querySelector('img')!    //non null assertion
 const myImg = document.getElementById('#img') as HTMLImageElement
 const nextImg = <HTMLImageElement>document.getElementById('#img')
 
