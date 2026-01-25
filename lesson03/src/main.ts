@@ -1,30 +1,34 @@
 let stringArr = ['one', 'hey', 'Dave']
 
-let guitars = ['Strat', 'Les Paul', 5150]
+let guitars = ['Strat', 'Les Paul', 5150]    //arr of union type
 
 let mixedData = ['EVH', 1984, true]
+/*
+    guitars = mixedData invalid
+    mixedData = guitars valid
+*/
 
 stringArr[0] = 'John'
 stringArr.push('hey')
 
 guitars[0] = 1984
-guitars.unshift('Jim')
+guitars.unshift('Jim') //add at beginning
 
-let test = []
+let test = []    //type : any
 let bands: string[] = []
 bands.push('Van Halen')
 
-// Tuple 
+// Tuple  fixed length
 let myTuple: [string, number, boolean] = ['Dave', 42, true]
 
 let mixed = ['John', 1, false]
-
+//err
 myTuple[1] = 42
 
 // Objects
 let myObj: object
-myObj = []
-console.log(typeof myObj)
+myObj = []    
+console.log(typeof myObj)    //object
 myObj = bands
 myObj = {}
 
@@ -34,9 +38,9 @@ const exampleObj = {
 }
 
 exampleObj.prop1 = 'John'
-
+// interface or type
 interface Guitarist {
-    name?: string,
+    name?: string,    //optional
     active: boolean,
     albums: (string | number)[]
 }
@@ -71,5 +75,8 @@ enum Grade {
     B,
     A,
 }
+/*
+Objects store actual data at runtime, types define data structure at compile time, and enums define named constant values available at runtime.
+*/
 
 console.log(Grade.U)
