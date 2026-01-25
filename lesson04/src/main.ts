@@ -1,6 +1,6 @@
 // Type Aliases 
 type stringOrNumber = string | number
-
+//interfaces cannot create union types.
 type stringOrNumberArray = (string | number)[]
 
 type Guitarist = {
@@ -11,13 +11,14 @@ type Guitarist = {
 
 type UserId = stringOrNumber
 
-// Literal types
+// Literal types (a variable can hold only specific exact values)
 let myName: 'Dave'
 
 let userName: 'Dave' | 'John' | 'Amy'
 userName = 'Amy'
 
 // functions 
+//arrow fn
 const add = (a: number, b: number): number => {
     return a + b
 }
@@ -28,11 +29,11 @@ const logMsg = (message: any): void => {
 
 logMsg('Hello!')
 logMsg(add(2, 3))
-
+//normal fn
 let subtract = function (c: number, d: number): number {
     return c - d
 }
-
+//alias
 type mathFunction = (a: number, b: number) => number
 // interface mathFunction {
 //     (a: number, b: number): number
@@ -60,19 +61,24 @@ const sumAll = (a: number = 10, b: number, c: number = 2): number => {
 logMsg(addAll(2, 3, 2))
 logMsg(addAll(2, 3))
 logMsg(sumAll(2, 3))
-logMsg(sumAll(undefined, 3))
+logMsg(sumAll(undefined, 3))    //15
 
 // Rest Parameters 
 const total = (a: number, ...nums: number[]): number => {
     return a + nums.reduce((prev, curr) => prev + curr)
 }
-
+/*
+...nums: number[] - Rest parameter
+Collects remaining arguments into an array of numbers
+*/
 logMsg(total(10, 2, 3))
 
+//never type for fn which explicitly throw error
 const createError = (errMsg: string): never => {
     throw new Error(errMsg)
 }
-
+//type -> void , if no break statement was there it would have been endless loop
+// which makes type -> never
 const infinite = () => {
     let i: number = 1
     while (true) {
@@ -93,3 +99,16 @@ const numberOrString = (value: number | string): string => {
     if (isNumber(value)) return 'number'
     return createError('This should never happen!')
 }
+
+/*
+throw new Error(errMsg);
+    Immediately stops execution
+    Throws an exception
+    Must be caught using try...catch
+    If not caught, the program crashes
+
+return createError("This should never happen!");
+    Returns an error object as a normal function return value
+    Does not stop execution
+    Caller must manually check for the error
+*/
