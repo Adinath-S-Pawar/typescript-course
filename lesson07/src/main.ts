@@ -1,7 +1,7 @@
 // Index Signatures 
 
 // interface TransactionObj {
-//     readonly [index: string]: number
+//     readonly [index: string]: number //key value, key cannot be boolean
 // }
 
 interface TransactionObj {
@@ -55,7 +55,7 @@ const student: Student = {
 // console.log(student.test)
 
 for (const key in student) {
-    console.log(`${key}: ${student[key as keyof Student]}`)
+    console.log(`${key}: ${student[key as keyof Student]}`) //access even if index signature doesnt exist
 }
 
 Object.keys(student).map(key => {
