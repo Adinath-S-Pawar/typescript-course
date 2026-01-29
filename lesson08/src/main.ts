@@ -6,11 +6,11 @@ const isObj = <T>(arg: T): boolean => {
     return (typeof arg === 'object' && !Array.isArray(arg) && arg !== null)
 }
 
-console.log(isObj(true))
-console.log(isObj('John'))
-console.log(isObj([1, 2, 3]))
-console.log(isObj({ name: 'John' }))
-console.log(isObj(null))
+console.log(isObj(true))    //f
+console.log(isObj('John'))    //f
+console.log(isObj([1, 2, 3]))    //f
+console.log(isObj({ name: 'John' }))    //t
+console.log(isObj(null))    //f
 
 ///////////////////////////////////
 
@@ -19,7 +19,7 @@ const isTrue = <T>(arg: T): { arg: T, is: boolean } => {
         return { arg, is: false }
     }
     if (isObj(arg) && !Object.keys(arg as keyof T).length) {
-        return { arg, is: false }
+        return { arg, is: false } //object with no keys
     }
     return { arg, is: !!arg }
 }
@@ -79,7 +79,7 @@ const getUsersProperty = <T extends HasID, K extends keyof T>(users: T[], key: K
 }
 
 const usersArray = [
-    {
+     {
         "id": 1,
         "name": "Leanne Graham",
         "username": "Bret",
