@@ -1,6 +1,6 @@
-// Utility Types 
+// Utility Types - built-in generic helper types that let you transform existing types instead of rewriting them manually.
 
-// Partial 
+// Partial - Constructs a type with all properties of Type set to optional.
 
 interface Assignment {
     studentId: string,
@@ -10,7 +10,7 @@ interface Assignment {
 }
 
 const updateAssignment = (assign: Assignment, propsToUpdate: Partial<Assignment>): Assignment => {
-    return { ...assign, ...propsToUpdate }
+    return { ...assign, ...propsToUpdate } //overwrite
 }
 
 const assign1: Assignment = {
@@ -23,13 +23,15 @@ console.log(updateAssignment(assign1, { grade: 95 }))
 const assignGraded: Assignment = updateAssignment(assign1, { grade: 95 })
 
 
-// Required and Readonly 
+// Required - Constructs a type consisting of all properties of Type set to required , 
+// here verified is optional property but it will be made compulsory by required
 
 const recordAssignment = (assign: Required<Assignment>): Assignment => {
     // send to database, etc. 
     return assign
 }
 
+//readonly - Constructs a type with all properties of Type set to readonly, meaning the properties of the constructed type cannot be reassigned.
 const assignVerified: Readonly<Assignment> = { ...assignGraded, verified: true }
 
 // NOTE: assignVerified won't work with recordAssignment!
@@ -37,7 +39,7 @@ const assignVerified: Readonly<Assignment> = { ...assignGraded, verified: true }
 
 recordAssignment({ ...assignGraded, verified: true })
 
-// Record 
+// Record - Constructs an object type whose property keys are Keys and whose property values are Type. This utility can be used to map the properties of a type to another type.
 const hexColorMap: Record<string, string> = {
     red: "FF0000",
     green: "00FF00",
@@ -62,7 +64,8 @@ const gradeData: Record<Students, Grades> = {
     Kelly: { assign1: 76, assign2: 15 },
 }
 
-// Pick and Omit 
+// Pick - Constructs a type by picking the set of properties Keys (string literal or union of string literals) from Type.
+// Omit - Constructs a type by picking all properties from Type and then removing Keys (string literal or union of string literals). The opposite of Pick.
 
 type AssignResult = Pick<Assignment, "studentId" | "grade">
 
@@ -78,18 +81,19 @@ const preview: AssignPreview = {
     title: "Final Project",
 }
 
-// Exclude and Extract 
+// Extract - Constructs a type by extracting from Type all union members that are assignable to Union.
+//Exclude - Constructs a type by excluding from UnionType all union members that are assignable to ExcludedMembers.
 
 type adjustedGrade = Exclude<LetterGrades, "U">
 
 type highGrades = Extract<LetterGrades, "A" | "B">
 
-// Nonnullable 
+// Nonnullable - Constructs a type by excluding null and undefined from Type.
 
 type AllPossibleGrades = 'Dave' | 'John' | null | undefined
 type NamesOnly = NonNullable<AllPossibleGrades>
 
-// ReturnType 
+// ReturnType - Constructs a type consisting of the return type of function Type.
 
 //type newAssign = { title: string, points: number }
 
@@ -102,7 +106,7 @@ type NewAssign = ReturnType<typeof createNewAssign>
 const tsAssign: NewAssign = createNewAssign("Utility Types", 100)
 console.log(tsAssign)
 
-// Parameters 
+// Parameters- Constructs a tuple type from the types used in the parameters of a function type Type.
 
 type AssignParams = Parameters<typeof createNewAssign>
 
@@ -131,7 +135,7 @@ const fetchUsers = async (): Promise<User[]> => {
     })
     return data
 }
-
+// because of awaited we get user array instead of promise
 type FetchUsersReturnType = Awaited<ReturnType<typeof fetchUsers>>
 
 fetchUsers().then(users => console.log(users))
